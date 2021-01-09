@@ -71,27 +71,12 @@ public class MainPageTest {
     }
 
     @Test
-    public void contact_support_link_is_reachable(){
+    public void test_contact_support_link_is_reachable(){
         mainPage.contactSupportLink.shouldBe(visible);
     }
-//    @Test
-//    public void search() {
-//        mainPage.searchButton.click();
-//        $(byId("header-search")).sendKeys("Selenium");
-//        $(byXpath("//button[@type='submit' and text()='Search']")).click();
-//        $(byClassName("js-search-input")).shouldHave(attribute("value", "Selenium"));
-//    }
-//
-//    @Test
-//    public void toolsMenu() {
-//        mainPage.toolsMenu.hover();
-//        $(byClassName("menu-main__popup-wrapper")).shouldBe(visible);
-//    }
-//
-//    @Test
-//    public void navigationToAllTools() {
-//        mainPage.seeAllToolsButton.click();
-//        $(byId("products-page")).shouldBe(visible);
-//        assertEquals(Selenide.title(), "All Developer Tools and Products by JetBrains");
-//    }
+
+    @Test
+    public void test_download_apps_menu_is_reachable(){
+        mainPage.appsMenuLink.shouldBe(visible);
+    }
 }

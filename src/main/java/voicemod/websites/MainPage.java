@@ -17,4 +17,7 @@ public class MainPage {
     public SelenideElement searchButton = $("[data-test=menu-main-icon-search]");
     public SelenideElement contactSupportLink =  $x("//a[contains(@href, 'https://support.voicemod.net/') " +
             "and text() = 'Contact us here']");
+    public SelenideElement appsMenuLink =  $x(
+            "//a[contains(@href, 'https://www.voicemod.net/products-voice-changer-app/') " +
+            "and text() = 'OUR APPS']");
 }

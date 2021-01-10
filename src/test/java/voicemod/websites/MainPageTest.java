@@ -26,9 +26,6 @@ import static org.testng.Assert.fail;
  * @author Ignacio Gazquez Navarrete
  */
 public class MainPageTest {
-    private final MainPage mainPage = new MainPage();
-    private final CookiesBanner cookiesBanner = new CookiesBanner();
-
     /**
      * Sets up the Allure tool (results of the tests can be represented after execution).
      */
@@ -47,7 +44,7 @@ public class MainPageTest {
     public void setUp() {
         Configuration.browser = "firefox";
         Configuration.startMaximized = true;
-        open(mainPage.url);
+        open(MainPage.URL);
     }
 
     /**
@@ -62,8 +59,8 @@ public class MainPageTest {
      * Check if the cookies banner is visible, and then, click on the accept all cookies button inside it.
      */
     public void accept_all_cookies() {
-        cookiesBanner.acceptAllCookiesButton.shouldBe(visible);
-        cookiesBanner.acceptAllCookiesButton.click();
+        CookiesBanner.acceptAllCookiesButton.shouldBe(visible);
+        CookiesBanner.acceptAllCookiesButton.click();
     }
 
     /**
@@ -77,7 +74,7 @@ public class MainPageTest {
         BufferedImage obtained_image;
         String expected_logo = "src/test/resources/logos/header-logo.png";
         try {
-            URL web_logo = new URL(mainPage.logo.getAttribute("src"));
+            URL web_logo = new URL(MainPage.logo.getAttribute("src"));
             obtained_image = ImageIO.read(web_logo);
             BufferedImage expected_image = ImageIO.read(new File(expected_logo));
             assertTrue(Tools.bufferedImagesEqual(obtained_image, expected_image),
@@ -94,7 +91,7 @@ public class MainPageTest {
     public void test_contact_support_link_is_reachable() {
         accept_all_cookies();
 
-        mainPage.contactSupportLink.shouldBe(visible);
+        MainPage.contactSupportLink.shouldBe(visible);
     }
 
     /**
@@ -104,7 +101,7 @@ public class MainPageTest {
     public void test_download_apps_menu_is_reachable() {
         accept_all_cookies();
 
-        mainPage.appsMenuLink.shouldBe(visible);
+        MainPage.appsMenuLink.shouldBe(visible);
     }
 
     /**
@@ -121,30 +118,30 @@ public class MainPageTest {
     public void test_check_title_and_translations() {
         accept_all_cookies();
         //English is defaulted
-        mainPage.englishHeaderTitle.shouldBe(visible);
+        MainPage.englishHeaderTitle.shouldBe(visible);
         //From English to German
-        mainPage.englishLanguageMenuItem.shouldBe(visible);
-        mainPage.englishLanguageMenuItem.click();
-        mainPage.germanLanguageMenuItem.shouldBe(visible);
-        mainPage.germanLanguageMenuItem.click();
-        mainPage.germanHeaderTitle.shouldBe(visible);
+        MainPage.englishLanguageMenuItem.shouldBe(visible);
+        MainPage.englishLanguageMenuItem.click();
+        MainPage.germanLanguageMenuItem.shouldBe(visible);
+        MainPage.germanLanguageMenuItem.click();
+        MainPage.germanHeaderTitle.shouldBe(visible);
         //From German to French
-        mainPage.germanLanguageMenuItem.shouldBe(visible);
-        mainPage.germanLanguageMenuItem.click();
-        mainPage.frenchLanguageMenuItem.shouldBe(visible);
-        mainPage.frenchLanguageMenuItem.click();
-        mainPage.frenchHeaderTitle.shouldBe(visible);
+        MainPage.germanLanguageMenuItem.shouldBe(visible);
+        MainPage.germanLanguageMenuItem.click();
+        MainPage.frenchLanguageMenuItem.shouldBe(visible);
+        MainPage.frenchLanguageMenuItem.click();
+        MainPage.frenchHeaderTitle.shouldBe(visible);
         //From German to Japanese
-        mainPage.frenchLanguageMenuItem.shouldBe(visible);
-        mainPage.frenchLanguageMenuItem.click();
-        mainPage.japaneseLanguageMenuItem.shouldBe(visible);
-        mainPage.japaneseLanguageMenuItem.click();
-        mainPage.japaneseHeaderTitle.shouldBe(visible);
+        MainPage.frenchLanguageMenuItem.shouldBe(visible);
+        MainPage.frenchLanguageMenuItem.click();
+        MainPage.japaneseLanguageMenuItem.shouldBe(visible);
+        MainPage.japaneseLanguageMenuItem.click();
+        MainPage.japaneseHeaderTitle.shouldBe(visible);
         //From Japanese to Russian
-        mainPage.japaneseLanguageMenuItem.shouldBe(visible);
-        mainPage.japaneseLanguageMenuItem.click();
-        mainPage.russianLanguageMenuItem.shouldBe(visible);
-        mainPage.russianLanguageMenuItem.click();
-        mainPage.russianHeaderTitle.shouldBe(visible);
+        MainPage.japaneseLanguageMenuItem.shouldBe(visible);
+        MainPage.japaneseLanguageMenuItem.click();
+        MainPage.russianLanguageMenuItem.shouldBe(visible);
+        MainPage.russianLanguageMenuItem.click();
+        MainPage.russianHeaderTitle.shouldBe(visible);
     }
 }

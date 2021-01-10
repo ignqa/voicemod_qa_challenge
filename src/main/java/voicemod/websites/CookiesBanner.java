@@ -14,5 +14,12 @@ public class CookiesBanner {
     /**
      * The Accept all cookies button.
      */
-    public SelenideElement acceptAllCookiesButton = $(byId("onetrust-accept-btn-handler"));
+    public static final SelenideElement acceptAllCookiesButton = $(byId("onetrust-accept-btn-handler"));
+
+    /**
+     * Compliant constructor
+     */
+    private CookiesBanner() {
+        throw new IllegalStateException("CookiesBanner class");
+    }
 }

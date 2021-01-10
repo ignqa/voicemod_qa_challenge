@@ -26,8 +26,6 @@ import static org.testng.Assert.fail;
  * @author Ignacio Gazquez Navarrete
  */
 public class DownloadAppsPageTest {
-    private final DownloadAppsPage downloads_page = new DownloadAppsPage();
-    private final CookiesBanner cookiesBanner = new CookiesBanner();
     private File downloaded_test_file;
 
     /**
@@ -49,7 +47,7 @@ public class DownloadAppsPageTest {
         downloaded_test_file = null;
         Configuration.browser = "firefox";
         Configuration.startMaximized = true;
-        open(downloads_page.url);
+        open(DownloadAppsPage.URL);
     }
 
     /**
@@ -77,8 +75,8 @@ public class DownloadAppsPageTest {
      * Check if the cookies banner is visible, and then, click on the accept all cookies button inside it
      */
     public void accept_all_cookies() {
-        cookiesBanner.acceptAllCookiesButton.shouldBe(visible);
-        cookiesBanner.acceptAllCookiesButton.click();
+        CookiesBanner.acceptAllCookiesButton.shouldBe(visible);
+        CookiesBanner.acceptAllCookiesButton.click();
     }
 
     /**
@@ -88,18 +86,18 @@ public class DownloadAppsPageTest {
      * - Once the app is downloaded, performs the MD5 algorithm over the downloaded binaries to verify if it is the
      * expected downloaded file.
      *
-     * @see Tools#getMD5Checksum(File)
+     * @see Tools#getSHA256Checksum(File)
      */
     @Test
     public void test_download_last_app_version() {
         accept_all_cookies();
 
-        downloads_page.downloadAppButton.shouldBe(visible);
-        String expected_md5_v2_4_0_6_binaries = "023c7817631bdb009301e1250ce424d8";
+        DownloadAppsPage.downloadAppButton.shouldBe(visible);
+        String expected_sha256_v2_4_0_6_binaries = "cb2f108ce710df2517aafae43f7666878cdd6566dcd228d7d754f2eec04aad28";
         try {
-            downloaded_test_file = downloads_page.downloadAppButton.download();
-            assertEquals(Tools.getMD5Checksum(downloaded_test_file), expected_md5_v2_4_0_6_binaries,
-                    "The downloaded file is not the expected Voicemod app binary. MD5");
+            downloaded_test_file = DownloadAppsPage.downloadAppButton.download();
+            assertEquals(Tools.getSHA256Checksum(downloaded_test_file), expected_sha256_v2_4_0_6_binaries,
+                    "The downloaded file is not the expected Voicemod app binary. SHA-256");
         } catch (FileNotFoundException e) {
             fail("There was no possible to read the downloaded file. Exception: " + e.toString());
         } catch (IOException e) {

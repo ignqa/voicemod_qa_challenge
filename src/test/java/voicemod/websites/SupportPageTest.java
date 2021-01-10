@@ -19,8 +19,6 @@ import static com.codeborne.selenide.Selenide.open;
  * @author Ignacio Gazquez Navarrete
  */
 public class SupportPageTest {
-    private final SupportPage supportPage = new SupportPage();
-
     /**
      * Sets up the Allure tool (results of the tests can be represented after execution).
      */
@@ -39,7 +37,7 @@ public class SupportPageTest {
     public void setUp() {
         Configuration.browser = "firefox";
         Configuration.startMaximized = true;
-        open(supportPage.url);
+        open(SupportPage.URL);
     }
 
     /**
@@ -57,20 +55,20 @@ public class SupportPageTest {
      * - Request description
      * - Submit request button
      * Notes for the interviewers: Ideally the form should be filled, and then the request submitted. Because this
-     * tests are being launched in a production environment, the validations are minimal (only check if the form parts are visible).
-     * To fill forms it would be enough to use the org.openqa.selenium.WebElement#sendKeys method. Then, clicking on the
-     * submit_request selenidElement the request would be submitted.
+     * tests are being launched in a production environment, the validations are minimal (only check if the form parts
+     * are visible). To fill forms it would be enough to use the org.openqa.selenium.WebElement#sendKeys method.
+     * Then, clicking on the submit_request selenidElement the request would be submitted.
      *
      * @see org.openqa.selenium.WebElement#sendKeys(CharSequence...)
      * @see SelenideElement#click()
      */
     @Test
     public void test_a_support_request_can_be_done() {
-        supportPage.contactSupportLink.shouldBe(visible);
-        supportPage.contactSupportLink.click();
-        supportPage.email_form.shouldBe(visible);
-        supportPage.subject_form.shouldBe(visible);
-        supportPage.description_description.shouldBe(visible);
-        supportPage.submit_request.shouldBe(visible);
+        SupportPage.contactSupportLink.shouldBe(visible);
+        SupportPage.contactSupportLink.click();
+        SupportPage.email_form.shouldBe(visible);
+        SupportPage.subject_form.shouldBe(visible);
+        SupportPage.description_description.shouldBe(visible);
+        SupportPage.submit_request.shouldBe(visible);
     }
 }

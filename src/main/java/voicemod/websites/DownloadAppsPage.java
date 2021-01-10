@@ -14,11 +14,17 @@ public class DownloadAppsPage {
     /**
      * The Url.
      */
-    public String url = "https://www.voicemod.net/products-voice-changer-app/";
-
+    public static final String URL = "https://www.voicemod.net/products-voice-changer-app/";
     /**
      * The Download app button.
      */
-    public SelenideElement downloadAppButton = $(byLinkText("DOWNLOAD NOW"));
+    public static final SelenideElement downloadAppButton = $(byLinkText("DOWNLOAD NOW"));
+
+    /**
+     * Compliant constructor
+     */
+    private DownloadAppsPage() {
+        throw new IllegalStateException("DownloadAppsPage class");
+    }
 
 }

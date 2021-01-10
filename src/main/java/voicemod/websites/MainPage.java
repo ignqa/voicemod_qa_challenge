@@ -18,67 +18,66 @@ public class MainPage {
     /**
      * The Url.
      */
-    public String url = "https://www.voicemod.net/";
+    public static final String URL = "https://www.voicemod.net/";
     /**
      * The Logo.
      */
-    public WebElement logo = $(byId("logo"));
+    public static final WebElement logo = $(byId("logo"));
     /**
      * The Contact support link.
      */
-    public SelenideElement contactSupportLink = $(byLinkText("Contact us here"));
+    public static final SelenideElement contactSupportLink = $(byLinkText("Contact us here"));
     /**
      * The Apps menu link.
      */
-    public SelenideElement appsMenuLink = $(byLinkText("OUR APPS"));
-
+    public static final SelenideElement appsMenuLink = $(byLinkText("OUR APPS"));
     /**
      * The English language menu item.
      */
-    public SelenideElement englishLanguageMenuItem = $(byLinkText("English"));
-    /**
-     * The English header title.
-     */
-    public SelenideElement englishHeaderTitle = $x("//h1[contains(" +
-            "text(),'FREE Real Time Voice Changer for Online Games')]");
-
+    public static final SelenideElement englishLanguageMenuItem = $(byLinkText("English"));
     /**
      * The German language menu item.
      */
-    public SelenideElement germanLanguageMenuItem = $(byLinkText("Deutsch"));
-    /**
-     * The German header title.
-     */
-    public SelenideElement germanHeaderTitle = $x("//h1[contains(" +
-            "text(),'GRATIS Echtzeit-Stimmenverzerrer für Online-Spiele')]");
-
+    public static final SelenideElement germanLanguageMenuItem = $(byLinkText("Deutsch"));
     /**
      * The French language menu item.
      */
-    public SelenideElement frenchLanguageMenuItem = $(byLinkText("Français"));
-    /**
-     * The French header title.
-     */
-    public SelenideElement frenchHeaderTitle = $x("//h1[contains(" +
-            "text(),'Modificateur de voix GRATUIT en temps réel pour les jeux en ligne')]");
-
+    public static final SelenideElement frenchLanguageMenuItem = $(byLinkText("Français"));
     /**
      * The Japanese language menu item.
      */
-    public SelenideElement japaneseLanguageMenuItem = $(byLinkText("日本語"));
-    /**
-     * The Japanese header title.
-     */
-    public SelenideElement japaneseHeaderTitle = $x("//h1[contains(" +
-            "text(),'サウンドミキサー不要！すぐに使える簡単ボイスチェンジャーアプリ')]");
-
+    public static final SelenideElement japaneseLanguageMenuItem = $(byLinkText("日本語"));
     /**
      * The Russian language menu item.
      */
-    public SelenideElement russianLanguageMenuItem = $(byLinkText("Русский"));
+    public static final SelenideElement russianLanguageMenuItem = $(byLinkText("Русский"));
+    private static final String HEADER_CONTAINS = "//h1[contains(";
+    /**
+     * The English header title.
+     */
+    public static final SelenideElement englishHeaderTitle = $x(HEADER_CONTAINS +
+            "text(),'FREE Real Time Voice Changer for Online Games')]");
+    /**
+     * The German header title.
+     */
+    public static final SelenideElement germanHeaderTitle = $x(HEADER_CONTAINS +
+            "text(),'GRATIS Echtzeit-Stimmenverzerrer für Online-Spiele')]");
+    /**
+     * The French header title.
+     */
+    public static final SelenideElement frenchHeaderTitle = $x(HEADER_CONTAINS +
+            "text(),'Modificateur de voix GRATUIT en temps réel pour les jeux en ligne')]");
+    /**
+     * The Japanese header title.
+     */
+    public static final SelenideElement japaneseHeaderTitle = $x(HEADER_CONTAINS +
+            "text(),'サウンドミキサー不要！すぐに使える簡単ボイスチェンジャーアプリ')]");
     /**
      * The Russian header title.
      */
-    public SelenideElement russianHeaderTitle = $x("//h1[contains(" +
+    public static final SelenideElement russianHeaderTitle = $x(HEADER_CONTAINS +
             "text(),'Изменение голоса в реальном времени')]");
+    private MainPage() {
+        throw new IllegalStateException("MainPage class");
+    }
 }

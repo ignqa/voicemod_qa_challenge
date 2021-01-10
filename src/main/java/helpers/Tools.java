@@ -15,30 +15,35 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Tools {
     /**
-     * Given a file calculates the MD5 checksum.
+     * Compliant constructor
+     */
+    private Tools() {
+        throw new IllegalStateException("Tools class");
+    }
+
+    /**
+     * Given a file calculates the SHA-256 checksum.
      *
      * @param file the file
      * @return the MD5 checksum
      * @throws IOException In case the file is corrupted or could not be executed the algorithm.
      * @see MessageDigest
      */
-    public static String getMD5Checksum(File file) throws IOException {
+    public static String getSHA256Checksum(File file) throws IOException {
         StringBuilder sb = new StringBuilder();
         try {
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            FileInputStream fis = new FileInputStream(file);
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            try (FileInputStream fis = new FileInputStream(file)) {
 
-            //Create byte array to read data in chunks
-            byte[] byteArray = new byte[1024];
-            int bytesCount = 0;
+                //Create byte array to read data in chunks
+                byte[] byteArray = new byte[1024];
+                int bytesCount = 0;
 
-            //Read file data and update in message digest
-            while ((bytesCount = fis.read(byteArray)) != -1) {
-                digest.update(byteArray, 0, bytesCount);
+                //Read file data and update in message digest
+                while ((bytesCount = fis.read(byteArray)) != -1) {
+                    digest.update(byteArray, 0, bytesCount);
+                }
             }
-
-            //close the stream;
-            fis.close();
 
             //Get the hash's bytes
             byte[] bytes = digest.digest();

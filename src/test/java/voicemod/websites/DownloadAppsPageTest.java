@@ -20,16 +20,30 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
+/**
+ * This class contains all the tests related to the Voicemod download apps webpage.
+ *
+ * @author Ignacio Gazquez Navarrete
+ */
 public class DownloadAppsPageTest {
     private final DownloadAppsPage downloads_page = new DownloadAppsPage();
     private final CookiesBanner cookiesBanner = new CookiesBanner();
     private File downloaded_test_file;
 
+    /**
+     * Sets up the Allure tool (results of the tests can be represented after execution).
+     */
     @BeforeClass
     public static void setUpAllure() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
+    /**
+     * Sets up. Before each test method it performs three main operations:
+     * - Selects firefox as browser to be employed in the tests
+     * - Set the browser configuration to start the tests with the windows maximized
+     * - Open the relevant website where the tests from this class are going to be performed
+     */
     @BeforeMethod
     public void setUp() {
         downloaded_test_file = null;
@@ -38,6 +52,14 @@ public class DownloadAppsPageTest {
         open(downloads_page.url);
     }
 
+    /**
+     * Tear down. After each test executed it performs two operations:
+     * - Close the web driver (close the browser)
+     * - In case a file was downloaded during the test execution, the file and the parent (temporal) directory
+     * are removed.
+     *
+     * @see FileUtils#deleteDirectory(File)
+     */
     @AfterMethod
     public void tearDown() {
         closeWebDriver();
@@ -51,11 +73,23 @@ public class DownloadAppsPageTest {
         }
     }
 
+    /**
+     * Check if the cookies banner is visible, and then, click on the accept all cookies button inside it
+     */
     public void accept_all_cookies() {
         cookiesBanner.acceptAllCookiesButton.shouldBe(visible);
         cookiesBanner.acceptAllCookiesButton.click();
     }
 
+    /**
+     * Test if it is possible to get the current desktop version of the VoiceMod application for Windows OS. Steps:
+     * - Accept all the cookies before starting to navigate.
+     * - Check if the download app button is visible. Click on it and download the app.
+     * - Once the app is downloaded, performs the MD5 algorithm over the downloaded binaries to verify if it is the
+     * expected downloaded file.
+     *
+     * @see Tools#getMD5Checksum(File)
+     */
     @Test
     public void test_download_last_app_version() {
         accept_all_cookies();

@@ -20,15 +20,29 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
+/**
+ * This class contains all the tests related to the Voicemod home page.
+ *
+ * @author Ignacio Gazquez Navarrete
+ */
 public class MainPageTest {
     private final MainPage mainPage = new MainPage();
     private final CookiesBanner cookiesBanner = new CookiesBanner();
 
+    /**
+     * Sets up the Allure tool (results of the tests can be represented after execution).
+     */
     @BeforeClass
     public static void setUpAllure() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
+    /**
+     * Sets up. Before each test method it performs three main operations:
+     * - Selects firefox as browser to be employed in the tests.
+     * - Set the browser configuration to start the tests with the windows maximized.
+     * - Open the relevant website where the tests from this class are going to be performed.
+     */
     @BeforeMethod
     public void setUp() {
         Configuration.browser = "firefox";
@@ -36,22 +50,32 @@ public class MainPageTest {
         open(mainPage.url);
     }
 
+    /**
+     * Tear down. After each test executed it closes the web driver (close the browser).
+     */
     @AfterMethod
     public void tearDown() {
         closeWebDriver();
     }
 
+    /**
+     * Check if the cookies banner is visible, and then, click on the accept all cookies button inside it.
+     */
     public void accept_all_cookies() {
         cookiesBanner.acceptAllCookiesButton.shouldBe(visible);
         cookiesBanner.acceptAllCookiesButton.click();
     }
 
+    /**
+     * After accepting all the cookies, it verifies if the header-logo is visible, then analyze it to check that
+     * is the expected one.
+     */
     @Test
     public void test_header_logo_is_visible() {
         accept_all_cookies();
 
         BufferedImage obtained_image;
-        String expected_logo = "src/test/resources/logos/logo-header.png";
+        String expected_logo = "src/test/resources/logos/header-logo.png";
         try {
             URL web_logo = new URL(mainPage.logo.getAttribute("src"));
             obtained_image = ImageIO.read(web_logo);
@@ -63,6 +87,9 @@ public class MainPageTest {
         }
     }
 
+    /**
+     * After accepting all the cookies, tests that contact support link is visible.
+     */
     @Test
     public void test_contact_support_link_is_reachable() {
         accept_all_cookies();
@@ -70,6 +97,9 @@ public class MainPageTest {
         mainPage.contactSupportLink.shouldBe(visible);
     }
 
+    /**
+     * After accepting all the cookies, tests that apps menu link is visible.
+     */
     @Test
     public void test_download_apps_menu_is_reachable() {
         accept_all_cookies();
@@ -77,29 +107,40 @@ public class MainPageTest {
         mainPage.appsMenuLink.shouldBe(visible);
     }
 
+    /**
+     * After accepting all the cookies, test that the main site can be translated to the next languages:
+     * - English (homepage is displayed in this language by default).
+     * - German.
+     * - French.
+     * - Japanese.
+     * - Russian.
+     * For that, the languages menu is visible, one of these lenguages can be selected, and at minimum, the website
+     * header title is translated into the expected language.
+     */
     @Test
     public void test_check_title_and_translations() {
         accept_all_cookies();
-
+        //English is defaulted
         mainPage.englishHeaderTitle.shouldBe(visible);
+        //From English to German
         mainPage.englishLanguageMenuItem.shouldBe(visible);
         mainPage.englishLanguageMenuItem.click();
         mainPage.germanLanguageMenuItem.shouldBe(visible);
         mainPage.germanLanguageMenuItem.click();
         mainPage.germanHeaderTitle.shouldBe(visible);
-
+        //From German to French
         mainPage.germanLanguageMenuItem.shouldBe(visible);
         mainPage.germanLanguageMenuItem.click();
         mainPage.frenchLanguageMenuItem.shouldBe(visible);
         mainPage.frenchLanguageMenuItem.click();
         mainPage.frenchHeaderTitle.shouldBe(visible);
-
+        //From German to Japanese
         mainPage.frenchLanguageMenuItem.shouldBe(visible);
         mainPage.frenchLanguageMenuItem.click();
         mainPage.japaneseLanguageMenuItem.shouldBe(visible);
         mainPage.japaneseLanguageMenuItem.click();
         mainPage.japaneseHeaderTitle.shouldBe(visible);
-
+        //From Japanese to Russian
         mainPage.japaneseLanguageMenuItem.shouldBe(visible);
         mainPage.japaneseLanguageMenuItem.click();
         mainPage.russianLanguageMenuItem.shouldBe(visible);

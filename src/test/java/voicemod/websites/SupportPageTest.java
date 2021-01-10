@@ -33,7 +33,7 @@ public class SupportPageTest {
     }
 
     @Test
-    public void test_a_support_request_can_be_done(){
+    public void test_a_support_request_can_be_done() {
         supportPage.contactSupportLink.shouldBe(visible);
         supportPage.contactSupportLink.click();
         supportPage.label_email_text_box.shouldBe(visible);

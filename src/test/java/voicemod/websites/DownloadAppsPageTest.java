@@ -22,6 +22,7 @@ import static org.testng.Assert.fail;
 
 public class DownloadAppsPageTest {
     private final DownloadAppsPage downloads_page = new DownloadAppsPage();
+    private final CookiesBanner cookiesBanner = new CookiesBanner();
     private File downloaded_test_file;
 
     @BeforeClass
@@ -50,12 +51,19 @@ public class DownloadAppsPageTest {
         }
     }
 
+    public void accept_all_cookies() {
+        cookiesBanner.acceptAllCookiesButton.shouldBe(visible);
+        cookiesBanner.acceptAllCookiesButton.click();
+    }
+
     @Test
     public void test_download_last_app_version() {
-        downloads_page.downloadAppButton_check.shouldBe(visible);
+        accept_all_cookies();
+
+        downloads_page.downloadAppButton.shouldBe(visible);
         String expected_md5_v2_4_0_6_binaries = "023c7817631bdb009301e1250ce424d8";
         try {
-            downloaded_test_file = downloads_page.downloadAppButton_click.download();
+            downloaded_test_file = downloads_page.downloadAppButton.download();
             assertEquals(Tools.getMD5Checksum(downloaded_test_file), expected_md5_v2_4_0_6_binaries,
                     "The downloaded file is not the expected Voicemod app binary. MD5");
         } catch (FileNotFoundException e) {

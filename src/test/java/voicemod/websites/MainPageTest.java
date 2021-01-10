@@ -22,6 +22,7 @@ import static org.testng.Assert.fail;
 
 public class MainPageTest {
     private final MainPage mainPage = new MainPage();
+    private final CookiesBanner cookiesBanner = new CookiesBanner();
 
     @BeforeClass
     public static void setUpAllure() {
@@ -40,8 +41,15 @@ public class MainPageTest {
         closeWebDriver();
     }
 
+    public void accept_all_cookies() {
+        cookiesBanner.acceptAllCookiesButton.shouldBe(visible);
+        cookiesBanner.acceptAllCookiesButton.click();
+    }
+
     @Test
     public void test_header_logo_is_visible() {
+        accept_all_cookies();
+
         BufferedImage obtained_image;
         String expected_logo = "src/test/resources/logos/logo-header.png";
         try {
@@ -57,11 +65,45 @@ public class MainPageTest {
 
     @Test
     public void test_contact_support_link_is_reachable() {
+        accept_all_cookies();
+
         mainPage.contactSupportLink.shouldBe(visible);
     }
 
     @Test
     public void test_download_apps_menu_is_reachable() {
+        accept_all_cookies();
+
         mainPage.appsMenuLink.shouldBe(visible);
+    }
+
+    @Test
+    public void test_check_title_and_translations() {
+        accept_all_cookies();
+
+        mainPage.englishHeaderTitle.shouldBe(visible);
+        mainPage.englishLanguageMenuItem.shouldBe(visible);
+        mainPage.englishLanguageMenuItem.click();
+        mainPage.germanLanguageMenuItem.shouldBe(visible);
+        mainPage.germanLanguageMenuItem.click();
+        mainPage.germanHeaderTitle.shouldBe(visible);
+
+        mainPage.germanLanguageMenuItem.shouldBe(visible);
+        mainPage.germanLanguageMenuItem.click();
+        mainPage.frenchLanguageMenuItem.shouldBe(visible);
+        mainPage.frenchLanguageMenuItem.click();
+        mainPage.frenchHeaderTitle.shouldBe(visible);
+
+        mainPage.frenchLanguageMenuItem.shouldBe(visible);
+        mainPage.frenchLanguageMenuItem.click();
+        mainPage.japaneseLanguageMenuItem.shouldBe(visible);
+        mainPage.japaneseLanguageMenuItem.click();
+        mainPage.japaneseHeaderTitle.shouldBe(visible);
+
+        mainPage.japaneseLanguageMenuItem.shouldBe(visible);
+        mainPage.japaneseLanguageMenuItem.click();
+        mainPage.russianLanguageMenuItem.shouldBe(visible);
+        mainPage.russianLanguageMenuItem.click();
+        mainPage.russianHeaderTitle.shouldBe(visible);
     }
 }
